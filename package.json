@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "azure-event-hubs": "^0.2.11",
+    "azure-iot-device": "^1.9.5",
+    "azure-iot-device-mqtt": "^1.9.5",
+    "azure-iothub": "^1.9.5",
+    "connect-flash": "^0.1.1",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "express-session": "^1.16.1",
+    "http": "0.0.0",
+    "method-override": "^3.0.0",
+    "ws": "^6.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
