@@ -4,7 +4,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverwrite = require('method-override');
 const WebSocket = require('ws');
-const iotHubClient = require('./iot-hub.js');
+const iotHubClient = require('./src/iot-hub.js');
 const session = require('express-session');
 const flash = require('connect-flash');
 const moment = require('moment');
@@ -42,8 +42,8 @@ app.use((req, res, next) =>{
 });
 
 // Routes
-app.use(require('./route/index'));
-app.use(require('./route/command'));
+app.use(require('./src/route/index'));
+app.use(require('./src/route/command'));
 
 // Static Files
 app.use(express.static(path.join(__dirname,'public')));
