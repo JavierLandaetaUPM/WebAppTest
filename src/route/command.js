@@ -29,35 +29,77 @@ router.post('/commands', async (req, res) =>{
         }
         if(options == 'raspberry'){
             console.log(command);
-            
-            var methodParams = {
-                methodName: 'stop', //no payload for stop
-                responseTimeoutInSeconds: 30
-            };
-            await invokeDeviceM(methodParams);
-            var methodParams = {
-                methodName: 'SetTelemetryInterval',
-                payload: command, // command.
-                responseTimeoutInSeconds: 30
-            };
-            await invokeDeviceM(methodParams);
-            var methodParams = {
-                methodName: 'start', // no payload for start.
-                responseTimeoutInSeconds: 30
-            };
-            await invokeDeviceM(methodParams);
+            switch(command) {
+                case 'stop':
+                  // in case the command is a stop
+                var methodParams = {
+                    methodName: 'stop', //no payload for stop
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-rpi-simulated');      
+                  break;
+                case 'blinkLED':
+                  // in case the command is a blinkLED
+                  var methodParams = {
+                    methodName: 'blink',
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-rpi-simulated');
+                  break;
+                case 'start':
+                 // in case the command is a start
+                var methodParams = {
+                    methodName: 'start', // no payload for start.
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-rpi-simulated');
+                break;
+              }
         }
         if(options == 'stp'){
+            console.log(command);
+            switch(command) {
+                case 'stop':
+                  // in case the command is a stop
+                var methodParams = {
+                    methodName: 'stop', //no payload for stop
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-iotdevice-esp32-si7021');      
+                  break;
+                case 'alert':
+                  // in case the command is a blinkLED
+                  var methodParams = {
+                    methodName: 'alert',
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-iotdevice-esp32-si7021');
+                  break;
+                case 'start':
+                 // in case the command is a start
+                var methodParams = {
+                    methodName: 'start', // no payload for start.
+                    payload: command, // command.
+                    responseTimeoutInSeconds: 30
+                };
+                await invokeDeviceM(methodParams, 'g5-iotdevice-esp32-si7021');
+                break;
+              }
             
         }
         
     }
 });
 
-function invokeDeviceM(methodParams) {
+function invokeDeviceM(methodParams, device) {
     const connectionString = 'HostName=g5-iot-hub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=N5tJ8Uw4xF+aBJZ/WgY/yY109+8n4OWruLX6I5A+3Jw=';
     var Client = require('azure-iothub').Client;
-    var deviceId = 'g5-rpi-simulated';
+    var deviceId = device;
     var client = Client.fromConnectionString(connectionString);
     client.invokeDeviceMethod(deviceId, methodParams, async function (err, result) {
         if (err) {
