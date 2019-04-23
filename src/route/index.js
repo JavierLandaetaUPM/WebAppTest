@@ -19,6 +19,9 @@ router.get('/dashboards-rb', (req, res) =>{
 router.get('/dashboards-stp', (req, res) =>{
     res.render('dashboards-stp');
 });
+router.get('/webot', (req, res) =>{
+    res.render('webot');
+});
 
 router.post('/dashboards', (req, res) => {
     console.log(req.body);
